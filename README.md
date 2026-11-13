@@ -4,7 +4,7 @@ Aplikasi front-end pemesanan dan monitoring bahan ajar Universitas Terbuka, diba
 
 ## Informasi Akademik
 
-| | |
+|---|---|
 | **Nama** | Pujan Daniar |
 | **NIM** | 053074671 |
 | **Prodi / Fakultas** | Sistem Informasi, FST |
