@@ -5,7 +5,6 @@ Aplikasi front-end pemesanan dan monitoring bahan ajar Universitas Terbuka, diba
 ## Informasi Akademik
 
 | | |
-|---|---|
 | **Nama** | Pujan Daniar |
 | **NIM** | 053074671 |
 | **Prodi / Fakultas** | Sistem Informasi, FST |
@@ -18,8 +17,6 @@ Universitas Terbuka, 2026
 ## Akses Aplikasi
 
 Aplikasi sudah online dan bisa diakses di: **https://tugas-web.daniar.dev**
-
-Jalankan lokal: buka terminal di folder proyek, jalankan `python3 -m http.server 8080` (fetch JSON tidak jalan lewat file://), lalu buka http://localhost:8080.
 
 ## Data Dummy untuk Mencoba
 
