@@ -1,0 +1,81 @@
+<div class="halaman">
+  <h2>Tracking Delivery Order</h2>
+
+  <div class="card">
+    <div class="form-cari">
+      <label class="kolom-penuh">Cari nomor DO atau NIM
+        <input v-model="kataKunci" placeholder="Mis. DO2025-0001 atau 123456789" @keyup.enter="cari" @keyup.esc="resetCari">
+      </label>
+      <button class="btn btn-kecil" @click="cari">Cari</button>
+      <button class="btn btn-kecil btn-abu" @click="resetCari">Reset (Esc)</button>
+      <button class="btn btn-kecil" @click="tampilForm = !tampilForm">{{ tampilForm ? 'Tutup Form DO Baru' : 'Tambah DO Baru' }}</button>
+    </div>
+    <p class="hint">Tekan Enter untuk mencari, tekan Esc untuk mereset pencarian</p>
+  </div>
+
+  <order-form v-if="tampilForm" :data-ut="dataUt" @tambah-do="$emit('tambah-do', $event)"></order-form>
+
+  <p class="hint" v-show="kataAktif !== ''">Hasil pencarian: "{{ kataAktif }}"</p>
+  <div class="card kosong" v-if="kataAktif === ''">Ketik nomor DO atau NIM lalu tekan Enter untuk mencari</div>
+  <div class="card kosong" v-else-if="Object.keys(hasilPencarian).length === 0">Data DO tidak ditemukan</div>
+
+  <div class="card kartu-hasil" v-for="(dataDO, nomor) in hasilPencarian" :key="nomor">
+    <div class="do-kepala">
+      <div class="do-judul">
+        <span class="stok-kode">Nomor DO</span>
+        <span class="do-nomor">{{ nomor }}</span>
+      </div>
+      <status-badge :warna="statusDo(dataDO.status).warna" :teks="statusDo(dataDO.status).teks" :catatan-html="'<b>' + dataDO.status + '</b> / ' + namaEkspedisi(dataDO.ekspedisi)"></status-badge>
+    </div>
+
+    <div class="do-info">
+      <div class="info-item">
+        <span class="info-label">NIM</span>
+        <span class="info-nilai">{{ dataDO.nim }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Nama</span>
+        <span class="info-nilai">{{ dataDO.nama }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Ekspedisi</span>
+        <span class="info-nilai">{{ namaEkspedisi(dataDO.ekspedisi) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Paket</span>
+        <span class="info-nilai">{{ dataDO.paket }} ({{ detailPaket(nomor).nama }})</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Tanggal Kirim</span>
+        <span class="info-nilai">{{ dataDO.tanggalKirim | tanggalID }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Total Harga</span>
+        <span class="info-nilai">{{ dataDO.total | rupiah }}</span>
+      </div>
+    </div>
+
+    <h4>Riwayat Perjalanan</h4>
+    <ul class="timeline">
+      <li v-for="langkah in dataDO.perjalanan" :key="langkah.waktu + langkah.keterangan">
+        <span class="waktu">{{ langkah.waktu }}</span>
+        {{ langkah.keterangan }}
+      </li>
+    </ul>
+
+    <button class="btn btn-kecil btn-abu" @click="pilihKartu(nomor)">Tambah Progress</button>
+  </div>
+
+  <div class="card kosong" v-if="Object.keys(hasilPencarian).length === 0 && kataAktif !== ''">Data DO tidak ditemukan</div>
+
+  <div class="card" v-if="nomorAktif !== ''">
+    <h3>Menambah progress untuk {{ nomorAktif }}</h3>
+    <div class="form-cari">
+      <label class="kolom-penuh">Keterangan status perjalanan
+        <input v-model.trim="keterangan" placeholder="Mis. Paket tiba di sorting center" @keyup.enter="tambahProgress">
+      </label>
+      <button class="btn btn-kecil" @click="tambahProgress">Simpan Progress</button>
+      <button class="btn btn-kecil btn-abu" @click="batalProgress">Batal</button>
+    </div>
+  </div>
+</div>

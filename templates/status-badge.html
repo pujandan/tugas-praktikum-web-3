@@ -1,0 +1,4 @@
+<span class="badge" :class="'badge-' + warna" @mouseover="tampil = true" @mouseleave="tampil = false">
+  {{ teks }}
+  <span class="catatan-peek" v-show="tampil && catatanHtml" v-html="catatanHtml"></span>
+</span>

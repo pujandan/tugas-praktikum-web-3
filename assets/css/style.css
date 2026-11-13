@@ -1,0 +1,600 @@
+/* CSS INI MERUPAKAN STYLE DASAR UNTUK SEMUA HALAMAN   */
+
+/* bagian ini untuk memanggil dan mendaftarkan font inter yang ada di folder font */
+@font-face {
+  font-family: "Inter";
+  src: url("../font/inter.ttf");
+}
+
+/* tag ini untuk membuat padding dan border ikut dihitung dalam lebar elemen agar kotaknya seragam */
+* {
+  box-sizing: border-box;
+}
+
+/* tag untuk mengatur body, di sini saya menggunakan font inter yang sudah dideklarasikan di atas */
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+}
+
+/* style untuk beberapa tag html seperti judul dan paragraf, margin bawah seragam 16px */
+h1, h2, h3, h4 {
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+h1 { font-size: 28px; }
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+h4 { font-size: 14px; }
+
+/* tag p untuk paragraf dengan ukuran dan jarak yang seragam di semua halaman */
+p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* tag code untuk menandai teks kode seperti kode mata kuliah di tabel stok */
+code {
+  background-color: #e8e8ed;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* style untuk card */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+/* class hint untuk teks kecil bantuan, jaraknya lebih dekat ke elemen di atasnya */
+.hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #86868b;
+}
+
+/* CSS INI MERUPAKAN STYLE NAVBAR DAN LAYOUT SEMUA HALAMAN */
+
+/* style untuk top bar */
+.topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e7;
+}
+
+/* class topbar-in untuk isi navbar, lebar saya samakan dengan container supaya sejajar tapi latar putihnya tetap penuh */
+.topbar-in {
+  width: 85%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* class brand untuk tulisan SITTA UT di kiri navbar */
+.brand {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1d1d1f;
+}
+
+/* footer selalu menempel di bawah layar walau konten pendek */
+.halaman-dalam {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.halaman-dalam main { flex: 1; }
+
+/* class menu-nav untuk menu navigasi di navbar */
+.menu-nav {
+  display: flex;
+  gap: 8px;
+}
+.menu-nav button {
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* saat menu diarahkan kursor latarnya berubah abu abu */
+.menu-nav button:hover { background-color: #f5f5f7; }
+
+/* class aktif untuk menandai menu halaman yang sedang dibuka, saya kasih warna biru */
+.menu-nav button.aktif {
+  background-color: #0071e3;
+  color: #ffffff;
+}
+
+/* class container untuk lebar isi semua halaman, saya pakai 85 persen dan maksimal 1000px biar semua halaman seragam dan tidak melebar di layar besar */
+.container {
+  width: 85%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* class footer untuk tulisan kecil menempel di bagian paling bawah halaman,
+   padding bawah kecil dan jarak antar baris rapat supaya menempel di dasar layar */
+.footer {
+  text-align: center;
+  padding: 16px 24px 12px;
+  font-size: 12px;
+  color: #86868b;
+}
+.footer p { margin: 2px 0; }
+
+/* CSS INI MERUPAKAN STYLE KONTROL: SEMUA INPUT, SELECT, DAN TOMBOL
+   DIBUAT TINGGI SERAGAM 42PX AGAR SEJAJAR KETIKA BERADA SATU BARIS */
+
+/* style dasar semua kolom input dan select: tinggi tetap 42px, padding kanan lebih besar
+   agar ikon dropdown tidak menempel ke garis tepi kanan kolom */
+input, select {
+  height: 42px;
+  width: 100%;
+  padding: 0 36px 0 12px;
+  border: 1px solid #d2d2d7;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: #1d1d1f;
+}
+
+/* input biasa tidak perlu ruang khusus dropdown seperti select */
+input {
+  padding: 0 12px;
+}
+
+/* panah dropdown bawaan browser saya hilangkan dan diganti panah svg sendiri,
+   diposisikan 12px dari garis kanan agar tidak menempel ke tepi kolom */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}
+
+/* saat kolom diklik garisnya saya jadikan biru */
+input:focus, select:focus {
+  outline: none;
+  border-color: #0071e3;
+}
+
+/* input-baca untuk kolom yang isinya tergenerate otomatis seperti nomor DO dan total harga, saya kasih latar abu supaya kelihatan tidak untuk diisi */
+.input-baca {
+  background-color: #f5f5f7;
+  color: #86868b;
+}
+
+/* tag label untuk keterangan tiap kolom input: teks label dan kontrolnya
+   disusun vertikal dengan jarak tetap 8px agar tidak pernah berdempetan */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* CSS INI MERUPAKAN STYLE TOMBOL UNTUK SEMUA HALAMAN, TINGGI DISAMAKAN DENGAN INPUT */
+
+/* class btn yaitu style dasar semua tombol berwarna biru, tinggi 42px sama dengan input */
+.btn {
+  height: 42px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #0071e3;
+  color: #ffffff;
+  font-family: inherit;
+}
+.btn:hover { background-color: #0077ed; }
+
+/* btn-kecil untuk tombol sekunder, tinggi 38px supaya tetap terlihat lebih ringan */
+.btn-kecil {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+/* btn-abu varian abu untuk tombol yang bukan aksi utama */
+.btn-abu { background-color: #86868b; }
+.btn-abu:hover { background-color: #6e6e73; }
+
+/* btn-merah varian merah untuk aksi hapus yang bersifat merusak */
+.btn-merah { background-color: #b3261e; }
+.btn-merah:hover { background-color: #9c211a; }
+
+/* btn-ikon: tombol persegi 32px berisi ikon svg, khusus di kolom aksi tabel */
+.btn-ikon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #0071e3;
+  cursor: pointer;
+}
+.btn-ikon:hover {
+  border-color: #0071e3;
+  background-color: #f0f7ff;
+}
+
+/* btn-ikon-merah: varian merah untuk tombol hapus */
+.btn-ikon-merah { color: #b3261e; }
+.btn-ikon-merah:hover {
+  border-color: #b3261e;
+  background-color: #fdecea;
+}
+
+/* CSS INI MERUPAKAN STYLE FORM STOK, ORDER, DAN PROGRESS */
+
+/* class form-grid untuk form tambah dan edit stok, kolomnya saya susun 2 kolom memakai grid,
+   jarak antar kolom berasal dari gap grid sehingga semua kontrol tidak perlu margin sendiri-sendiri */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-grid label { margin-bottom: 0; }
+.form-grid input, .form-grid select { margin-bottom: 0; }
+
+/* class form-aksi untuk membungkus tombol aksi sejajar ke kanan, jarak dari elemen atasnya seragam 16px */
+.form-aksi {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* di dalam grid form, jarak sudah diatur gap grid sehingga margin atas tidak dibutuhkan */
+.form-grid .form-aksi { margin-top: 0; }
+
+/* pesan error dan sukses menempati satu baris penuh di atas tombol aksi */
+.form-aksi .pesan-gagal, .form-aksi .pesan-berhasil {
+  margin-right: auto;
+}
+
+/* class kolom-penuh agar kolom tertentu memenuhi lebar grid form */
+.kolom-penuh { grid-column: 1 / -1; }
+
+/* class filter-bar untuk baris filter dan sort di atas tabel stok,
+   tiap filter dibungkus filter-sel berisi label kecil di atas dan kontrol 42px di bawah */
+.filter-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px 20px;
+  background-color: #f5f5f7;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+/* filter-sel menyusun label dan kontrol vertikal dengan jarak tetap 8px */
+.filter-sel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* filter-label teks kecil abu di atas setiap kontrol */
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #86868b;
+  margin: 0;
+}
+
+/* semua kontrol di dalam filter tinggi 42px dan tanpa margin bawaan */
+.filter-sel select, .filter-sel .ceklis-reorder, .filter-sel .btn-kecil, .filter-sel .btn-abu {
+  height: 42px;
+  margin-bottom: 0;
+}
+
+/* di dalam filter, jarak label ke kontrol sudah diatur gap filter-sel */
+.filter-sel label { margin-bottom: 0; }
+
+/* filter-ganda untuk sel urutkan yang berisi dua select berdempet */
+.filter-ganda {
+  display: flex;
+  gap: 8px;
+}
+.filter-ganda select { flex: 1; }
+
+/* kotak centang re-order saya bungkus gaya kontrol lain supaya tinggi dan radiusnya serasi */
+.ceklis-reorder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid #d2d2d7;
+  border-radius: 10px;
+  background-color: #ffffff;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+}
+.ceklis-reorder:hover { border-color: #0071e3; }
+.ceklis-reorder input {
+  width: auto;
+  margin: 0;
+  accent-color: #0071e3;
+}
+
+/* CSS INI MERUPAKAN STYLE PESAN VALIDASI DAN STATUS  */
+
+/* pesan-gagal untuk pesan validasi formulir dan pesan-berhasil untuk pesan sukses */
+.pesan-gagal, .pesan-berhasil {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 16px 0 0;
+}
+.pesan-gagal { background-color: #fdecea; color: #b3261e; }
+.pesan-berhasil { background-color: #e8f5e9; color: #1d7a3e; }
+
+/* class kosong untuk pesan data tidak ditemukan */
+.kosong {
+  text-align: center;
+  color: #86868b;
+  margin-bottom: 0;
+}
+
+/* CSS INI MERUPAKAN STYLE TABEL UNTUK HALAMAN STOK */
+
+/* class tabel-wrap supaya tabel tetap bisa digeser ke samping di layar kecil */
+.tabel-wrap { overflow-x: auto; }
+
+/* style untuk tabel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e7;
+}
+th {
+  font-weight: 600;
+  color: #86868b;
+  font-size: 12px;
+}
+
+/* kode dan judul di kolom pertama saya susun bertingkat: kode kecil abu di atas, judul tebal di bawah */
+.stok-kode {
+  display: block;
+  font-size: 12px;
+  color: #86868b;
+  margin-bottom: 2px;
+}
+.stok-judul { font-weight: 600; }
+
+/* angka safety saya kecilkan dan abukan supaya fokus tetap ke jumlah stoknya */
+.stok-safety {
+  font-size: 13px;
+  color: #86868b;
+}
+
+/* saat baris tabel diarahkan kursor latarnya berubah abu abu biar mudah dilacak */
+tbody tr:hover { background-color: #f5f5f7; }
+
+/* class aksi-stok untuk membungkus dua tombol ikon ubah dan hapus agar berdempet rapi */
+.aksi-stok {
+  display: flex;
+  gap: 8px;
+}
+
+/* CSS INI MERUPAKAN STYLE KHUSUS HALAMAN TRACKING */
+
+/* class form-cari untuk form cari nomor DO, align end membuat input dan tombol sejajar di bawah */
+.form-cari {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+}
+.form-cari label { flex: 1; }
+.form-cari input, .form-cari button { margin-bottom: 0; }
+
+/* class detail-paket untuk kotak informasi isi paket yang muncul setelah paket dipilih */
+.detail-paket {
+  padding: 14px 16px;
+  margin: 0 0 16px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.detail-paket p { margin: 4px 0; font-size: 14px; }
+.detail-paket ul, .detail-paket ol { margin: 8px 0; padding-left: 20px; }
+.detail-paket-judul { font-weight: 600; }
+
+/* class timeline untuk riwayat perjalanan paket di halaman tracking, saya kasih garis di sebelah kiri,
+   jarak bawahnya untuk memisahkan dari tombol tambah progress di bawahnya */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 16px;
+  border-left: 1px solid #d2d2d7;
+  margin-left: 8px;
+}
+.timeline li {
+  padding: 8px 0 8px 16px;
+  font-size: 14px;
+}
+.timeline .waktu {
+  display: block;
+  font-size: 12px;
+  color: #86868b;
+  margin-bottom: 4px;
+}
+
+/* class kartu-hasil untuk kartu hasil pencarian tracking */
+.kartu-hasil { margin-top: 8px; }
+
+/* do-kepala bagian atas kartu DO: nomor di kiri, badge status di kanan, dipisah garis */
+.do-kepala {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #e5e5e7;
+}
+
+/* do-nomor nomor delivery order dengan ukuran lebih besar */
+.do-nomor { font-size: 18px; font-weight: 600; }
+
+/* do-judul menyusun keterangan dan nomor secara bertingkat */
+.do-judul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* do-info menyusun detail pengiriman menjadi beberapa kolom yang rapi */
+.do-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+
+/* info-item satu pasangan keterangan dan nilai */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.info-label { font-size: 12px; color: #86868b; }
+.info-nilai { font-size: 14px; font-weight: 500; }
+
+/* judul riwayat perjalanan di kartu dibuat lebih dekat ke timeline-nya */
+.kartu-hasil h4 { margin-bottom: 8px; }
+
+/* CSS INI MERUPAKAN STYLE BADGE STATUS UNTUK STOK DAN TRACKING  */
+
+/* class badge yaitu label kecil bulat untuk status stok dan status pengiriman */
+.badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  cursor: default;
+}
+
+/* badge-hijau berwarna hijau untuk status aman dan dikirim */
+.badge-hijau {
+  background-color: #e8f5e9;
+  color: #1d7a3e;
+}
+
+/* badge-kuning berwarna oranye untuk status menipis dan dalam perjalanan */
+.badge-kuning {
+  background-color: #fff3e0;
+  color: #b26a00;
+}
+
+/* badge-merah berwarna merah untuk status stok kosong */
+.badge-merah {
+  background-color: #fdecea;
+  color: #b3261e;
+}
+
+/* badge-abu berwarna abu untuk status DO yang masih diproses */
+.badge-abu {
+  background-color: #e8e8ed;
+  color: #515154;
+}
+
+/* catatan-peek untuk tooltip catatan gudang yang muncul saat hover di kolom status */
+.catatan-peek {
+  position: absolute;
+  bottom: 130%;
+  left: 0;
+  z-index: 20;
+  width: 240px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background-color: #1d1d1f;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* CSS INI MERUPAKAN STYLE MODAL KONFIRMASI HAPUS */
+
+/* class overlay untuk latar gelap penutup halaman saat modal terbuka */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* class modal-kotak untuk kotak konfirmasi, style card saya perbesar shadow biar terasa mengapung */
+.modal-kotak {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.modal-kotak p { margin-bottom: 20px; }
+
+/* class modal-aksi untuk membungkus tombol batal dan hapus di modal */
+.modal-aksi {
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+}
+
+/* CSS INI MERUPAKAN STYLE RESPONSIF UNTUK SEMUA HALAMAN    */
+
+/* media query untuk layar kecil atau hp supaya tampilan tidak berantakan */
+@media (max-width: 600px) {
+  .filter-bar { grid-template-columns: 1fr; }
+  .form-cari { flex-direction: column; align-items: stretch; }
+  .form-grid { grid-template-columns: 1fr; }
+  .topbar-in { flex-wrap: wrap; }
+  .menu-nav { order: 3; width: 100%; overflow-x: auto; }
+}

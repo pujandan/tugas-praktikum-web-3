@@ -1,0 +1,9 @@
+<div class="overlay" v-if="tampil">
+  <div class="modal-kotak">
+    <p>{{ pesan }}</p>
+    <div class="modal-aksi">
+      <button class="btn btn-kecil btn-abu" @click="$emit('batal')">Batal</button>
+      <button class="btn btn-kecil btn-merah" @click="$emit('ya')">Ya, Hapus</button>
+    </div>
+  </div>
+</div>

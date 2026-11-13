@@ -1,0 +1,49 @@
+<div class="halaman">
+  <h2>Form Pemesanan Bahan Ajar</h2>
+
+  <div class="card">
+    <div class="form-grid">
+      <label>Nomor DO (otomatis)
+        <input class="input-baca" :value="nomorBerikutnya" readonly>
+      </label>
+      <label>Tanggal Kirim
+        <input type="date" v-model="form.tanggalKirim" @keyup.enter="kirim">
+      </label>
+      <label>NIM
+        <input v-model.trim="form.nim" placeholder="7 sampai 12 digit" @keyup.enter="kirim">
+      </label>
+      <label>Nama Lengkap
+        <input v-model.trim="form.nama" placeholder="Nama penerima paket" @keyup.enter="kirim">
+      </label>
+      <label>Ekspedisi
+        <select v-model="form.ekspedisi" @keyup.enter="kirim">
+          <option value="">Pilih Ekspedisi</option>
+          <option v-for="e in dataUt.pengirimanList" :key="e.kode" :value="e.kode">{{ e.kode }} - {{ e.nama }}</option>
+        </select>
+      </label>
+      <label>Paket Bahan Ajar
+        <select v-model="form.paket" @keyup.enter="kirim">
+          <option value="">Pilih Paket</option>
+          <option v-for="p in dataUt.paket" :key="p.kode" :value="p.kode">{{ p.kode }} - {{ p.nama }}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="detail-paket" v-if="paketDipilih">
+      <p class="detail-paket-judul">Isi {{ paketDipilih.kode }} - {{ paketDipilih.nama }}:</p>
+      <ul>
+        <li v-for="kodeMK in paketDipilih.isi" :key="kodeMK">{{ kodeMK }}</li>
+      </ul>
+      <p>Total Harga: <b>{{ paketDipilih.harga | rupiah }}</b></p>
+      <p>Tanggal Kirim: <b>{{ form.tanggalKirim | tanggalID }}</b></p>
+    </div>
+
+    <p class="pesan-gagal" v-show="detailValidasi !== ''">{{ detailValidasi }}</p>
+    <p class="pesan-berhasil" v-show="pesanSukses !== ''">{{ pesanSukses }}</p>
+
+    <div class="form-aksi">
+      <button class="btn btn-kecil" @click="kirim">Kirim Pesanan</button>
+    </div>
+    <p class="hint">Tekan Enter pada kolom manapun untuk mengirim pesanan</p>
+  </div>
+</div>

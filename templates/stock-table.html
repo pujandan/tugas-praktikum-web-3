@@ -1,0 +1,146 @@
+<div class="halaman">
+  <h2 v-text="judul"></h2>
+
+  <div class="filter-bar">
+    <div class="filter-sel">
+      <span class="filter-label">UT-Daerah</span>
+      <select v-model="filterUt">
+        <option value="semua">Semua UT-Daerah</option>
+        <option v-for="ut in dataUt.upbjjList" :key="ut" :value="ut">{{ ut }}</option>
+      </select>
+    </div>
+
+    <div class="filter-sel" v-show="filterUt !== 'semua'">
+      <span class="filter-label">Kategori</span>
+      <select v-model="filterKategori">
+        <option value="semua">Semua Kategori</option>
+        <option v-for="kat in kategoriTersedia" :key="kat" :value="kat">{{ kat }}</option>
+      </select>
+    </div>
+
+    <div class="filter-sel">
+      <span class="filter-label">Stok</span>
+      <label class="ceklis-reorder">
+        <input type="checkbox" v-model="hanyaReorder"> Perlu Re-Order
+      </label>
+    </div>
+
+    <div class="filter-sel">
+      <span class="filter-label">Urutkan</span>
+      <div class="filter-ganda">
+        <select v-model="sortBy">
+          <option value="">Tanpa urutan</option>
+          <option value="judul">Judul</option>
+          <option value="qty">Stok</option>
+          <option value="harga">Harga</option>
+        </select>
+        <select v-model="arah" v-show="sortBy !== ''">
+          <option value="naik">Naik</option>
+          <option value="turun">Turun</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-sel">
+      <span class="filter-label">&nbsp;</span>
+      <button class="btn btn-kecil btn-abu" @click="resetFilter">Reset Filter</button>
+    </div>
+  </div>
+
+  <div class="card tabel-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Kode / Mata Kuliah</th>
+          <th>Kategori</th>
+          <th>UT-Daerah</th>
+          <th>Lokasi Rak</th>
+          <th>Harga</th>
+          <th>Stok</th>
+          <th>Safety</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="buku in daftarTersaring" :key="buku.kode + '-' + buku.upbjj">
+          <td>
+            <span class="stok-kode">{{ buku.kode }}</span>
+            <span class="stok-judul">{{ buku.judul }}</span>
+          </td>
+          <td>{{ buku.kategori }}</td>
+          <td>{{ buku.upbjj }}</td>
+          <td>{{ buku.lokasiRak }}</td>
+          <td>{{ buku.harga | rupiah }}</td>
+          <td>{{ buku.qty | buah }}</td>
+          <td class="stok-safety">{{ buku.safety | buah }}</td>
+          <td>
+            <status-badge :warna="statusWarna(buku)" :teks="statusTeks(buku)" :catatan-html="buku.catatanHTML"></status-badge>
+          </td>
+          <td>
+            <div class="aksi-stok">
+              <button class="btn-ikon" title="Edit" @click="mulaiEdit(buku)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+              </button>
+              <button class="btn-ikon btn-ikon-merah" title="Hapus" @click="mintaHapus(buku)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr v-if="daftarTersaring.length === 0">
+          <td colspan="9" class="kosong">Tidak ada data yang cocok dengan filter</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="hint">{{ daftarTersaring.length }} dari {{ dataUt.stok.length }} data ditampilkan</p>
+
+    <div class="form-aksi">
+      <button class="btn btn-kecil" @click="bukaFormBaru">Tambah Bahan Ajar</button>
+    </div>
+  </div>
+
+  <div class="card" id="formStok" v-if="tampilForm">
+    <h3>{{ indeksEdit === -1 ? 'Tambah Bahan Ajar Baru' : 'Edit Bahan Ajar: ' + form.kode }}</h3>
+    <div class="form-grid">
+      <label>Kode MK
+        <input v-model.trim="form.kode" placeholder="Mis. EKMA4116" :disabled="indeksEdit !== -1" @keyup.enter="simpanForm">
+      </label>
+      <label>Judul Mata Kuliah
+        <input v-model.trim="form.judul" placeholder="Mis. Pengantar Manajemen" @keyup.enter="simpanForm">
+      </label>
+      <label>Kategori
+        <select v-model="form.kategori" @keyup.enter="simpanForm">
+          <option value="">Pilih Kategori</option>
+          <option v-for="kat in dataUt.kategoriList" :key="kat" :value="kat">{{ kat }}</option>
+        </select>
+      </label>
+      <label>UT-Daerah
+        <select v-model="form.upbjj" @keyup.enter="simpanForm">
+          <option value="">Pilih UT-Daerah</option>
+          <option v-for="ut in dataUt.upbjjList" :key="ut" :value="ut">{{ ut }}</option>
+        </select>
+      </label>
+      <label>Lokasi Rak
+        <input v-model.trim="form.lokasiRak" placeholder="Mis. R1-A3" @keyup.enter="simpanForm">
+      </label>
+      <label>Harga (Rp)
+        <input type="number" min="0" v-model.number="form.harga" placeholder="Mis. 65000" @keyup.enter="simpanForm">
+      </label>
+      <label>Jumlah Stok
+        <input type="number" min="0" v-model.number="form.qty" placeholder="Mis. 28" @keyup.enter="simpanForm">
+      </label>
+      <label>Safety Stock
+        <input type="number" min="0" v-model.number="form.safety" placeholder="Mis. 20" @keyup.enter="simpanForm">
+      </label>
+    </div>
+    <p class="pesan-gagal" v-show="pesanError !== ''">{{ pesanError }}</p>
+    <div class="form-aksi">
+      <button class="btn btn-kecil btn-abu" @click="batalEdit">Batal</button>
+      <button class="btn btn-kecil" @click="simpanForm">{{ indeksEdit === -1 ? 'Simpan' : 'Simpan Perubahan' }}</button>
+    </div>
+    <p class="hint">Tekan Enter pada kolom manapun untuk menyimpan</p>
+  </div>
+
+  <app-modal :tampil="modalHapus !== null" pesan="Hapus data bahan ajar ini secara permanen?" @ya="konfirmasiHapus" @batal="modalHapus = null"></app-modal>
+</div>
